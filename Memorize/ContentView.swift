@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    let emoji_arr = ["👻", "😽", "📕", "🤠"].shuffled()
     var body: some View {
+        var randomEmoji = emoji_arr[0]
         HStack {
-            CardView(isFaceUp: true)
-            CardView()
-            CardView()
-            CardView()
+            ForEach(0..<emoji_arr.count, id: \.self) { index in
+                CardView(content: emoji_arr[index])
+            }
         }
         .foregroundColor(.orange)
         .padding()
@@ -21,21 +22,26 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    var isFaceUp: Bool = false
+    var content = "👻"
+    @State var isFaceUp = false
+    let base = RoundedRectangle(cornerRadius: 12)
     var body: some View{
         ZStack {
             if isFaceUp {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12)
+                base
+                    .fill(.white)
+                base
                     .strokeBorder(lineWidth: 2)
-                Text("🔥")
+                Text(content)
                     .font(.largeTitle)
             }
             else {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.orange)
+                base
+                    .fill()
             }
+        }
+        .onTapGesture {
+            isFaceUp.toggle()
         }
     }
 }
@@ -43,3 +49,5 @@ struct CardView: View {
 #Preview {
     ContentView()
 }
+
+// Value of optional type 'String?' must be unwrapped to a value of type 'String'
