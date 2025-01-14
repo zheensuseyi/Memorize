@@ -23,6 +23,7 @@ class EmojiMemoryGame: ObservableObject {
     }
     @Published private var model = createMemoryGame()
     
+    // what is this
     var cards: Array<MemorizeGame<String>.Card> {
         return model.cards
     }
