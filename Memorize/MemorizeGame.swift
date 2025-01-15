@@ -29,6 +29,7 @@ struct MemorizeGame<CardContent> {
         print(cards)
     }
     
+    
     struct Card {
         var isFaceUp = true
         var isMatched = false

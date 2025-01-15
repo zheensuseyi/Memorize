@@ -22,12 +22,52 @@ struct ContentView: View {
                 // computed property that will build our game
                 cards
             }
-            Button("Shuffle") {
+            Button(action: {
                 viewModel.shuffle()
-            }
+            }) {
+                Text("Shuffle Cards")
+                    .font(.title2)
             }
             .padding()
+            HStack {
+                Button(action: {
+                    viewModel.changeTheme(to: "Cat")
+                }) {
+                    VStack {
+                        Image(systemName: "cat.fill")
+                            .font(.largeTitle)
+                        Text("Cat Theme")
+                    }
+                    .foregroundColor(.teal)
+                }
+                Spacer()
+                Button(action: {
+                    viewModel.changeTheme(to: "Spooky")
+                }) {
+                    VStack {
+                        Image(systemName: "tree.fill")
+                            .font(.largeTitle)
+                        Text("Spooky Theme")
+                    }
+                    .foregroundColor(.orange)
+
+                }
+                Spacer()
+                Button(action: {
+                    viewModel.changeTheme(to: "Flag")
+                }) {
+                    VStack {
+                        Image(systemName: "flag.fill")
+                            .font(.largeTitle)
+                        Text("Flag Theme")
+                    }
+                    .foregroundColor(.pink)
+
+                }
+            }
         }
+        .padding()
+    }
 
      var cards: some View {
          LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)]) {
@@ -36,6 +76,7 @@ struct ContentView: View {
                      .aspectRatio(2/3, contentMode: .fit)
                      .padding(4)
              }
+             .foregroundColor(viewModel.backgroundColor)
          }
      }
  }

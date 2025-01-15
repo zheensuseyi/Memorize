@@ -9,19 +9,24 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
-    private static let emojis = ["👻", "🎃", "🧛🏻", "🤠", "👻", "🎃", "🧛🏻", "🤠"]
+    private static let spookyEmojis = ["👻", "🎃", "🧛🏻", "🤠", "👻", "🎃", "🧛🏻", "🤠"]
+    private static let catEmojis = ["😽", "😾", "🐱", "😸", "😽", "😾", "🐱", "😸"]
+    private static let flagEmojis = ["🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️", "🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️"]
+    private static var currentEmojis = spookyEmojis
 
-    private static func createMemoryGame() -> MemorizeGame<String> {
+    private static func createMemoryGame(_ currentEmojis: Array<String>) -> MemorizeGame<String> {
         return MemorizeGame(numberOfPairsOfCards: 6) { pairIndex in
-            if emojis.indices.contains(pairIndex) {
-                return emojis[pairIndex]
+            if currentEmojis.indices.contains(pairIndex) {
+                return currentEmojis[pairIndex]
             }
             else {
                 return "⁉️"
             }
         }
     }
-    @Published private var model = createMemoryGame()
+    @Published var backgroundColor: Color = .white
+
+    @Published private var model = createMemoryGame(currentEmojis)
     
     // what is this
     var cards: Array<MemorizeGame<String>.Card> {
@@ -36,4 +41,25 @@ class EmojiMemoryGame: ObservableObject {
     func choose(_ card: MemorizeGame<String>.Card) {
         model.choose(card)
     }
+    func changeTheme(to theme: String) {
+            // Change the current emoji set based on the selected theme
+            switch theme {
+            case "Spooky":
+                EmojiMemoryGame.currentEmojis = EmojiMemoryGame.spookyEmojis
+                backgroundColor = .orange
+            case "Cat":
+                EmojiMemoryGame.currentEmojis = EmojiMemoryGame.catEmojis
+                backgroundColor = .teal
+            case "Flag":
+                EmojiMemoryGame.currentEmojis = EmojiMemoryGame.flagEmojis
+                backgroundColor = .pink
+            default:
+                EmojiMemoryGame.currentEmojis = EmojiMemoryGame.spookyEmojis
+            }
+            
+            // Recreate the memory game with the new emoji set
+            model = EmojiMemoryGame.createMemoryGame(EmojiMemoryGame.currentEmojis)
+            
+            // Update background color if needed
+        }
 }
