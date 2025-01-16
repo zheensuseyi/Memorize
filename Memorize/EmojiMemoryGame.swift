@@ -24,11 +24,11 @@ class EmojiMemoryGame: ObservableObject {
             }
         }
     }
-    @Published var backgroundColor: Color = .white
+    @Published var backgroundColor: Color = .orange
 
     @Published private var model = createMemoryGame(currentEmojis)
     
-    // what is this
+    // FIXME: what is this
     var cards: Array<MemorizeGame<String>.Card> {
         return model.cards
     }
@@ -36,6 +36,7 @@ class EmojiMemoryGame: ObservableObject {
     // MARK: -- INTENTS
     func shuffle() {
         model.shuffle()
+        // FIXME: dafuq is this
         objectWillChange.send()
     }
     func choose(_ card: MemorizeGame<String>.Card) {

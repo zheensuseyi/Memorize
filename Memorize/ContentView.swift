@@ -33,6 +33,7 @@ struct ContentView: View {
             HStack {
                 Button(action: {
                     viewModel.changeTheme(to: "Cat")
+                    viewModel.shuffle()
                 }) {
                     VStack {
                         Image(systemName: "cat.fill")
@@ -44,6 +45,8 @@ struct ContentView: View {
                 Spacer()
                 Button(action: {
                     viewModel.changeTheme(to: "Spooky")
+                    viewModel.shuffle()
+
                 }) {
                     VStack {
                         Image(systemName: "tree.fill")
@@ -51,11 +54,11 @@ struct ContentView: View {
                         Text("Spooky Theme")
                     }
                     .foregroundColor(.orange)
-
                 }
                 Spacer()
                 Button(action: {
                     viewModel.changeTheme(to: "Flag")
+                    viewModel.shuffle()
                 }) {
                     VStack {
                         Image(systemName: "flag.fill")
@@ -63,7 +66,6 @@ struct ContentView: View {
                         Text("Flag Theme")
                     }
                     .foregroundColor(.pink)
-
                 }
             }
         }
