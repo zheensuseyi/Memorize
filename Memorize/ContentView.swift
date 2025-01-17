@@ -9,12 +9,13 @@ import SwiftUI
 struct ContentView: View {
     // observedobject, if this thing change
     @ObservedObject var viewModel: EmojiMemoryGame
+
     
     var body: some View {
         // aligning everything in a VStack
         VStack {
             // Title with modifiers
-            Text("Memorize")
+            Text(viewModel.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
             // ScrollView for our cards
@@ -24,50 +25,12 @@ struct ContentView: View {
                     .animation(.default, value: viewModel.cards)
             }
             Button(action: {
-                viewModel.shuffle()
+                viewModel.newGame()
             }) {
-                Text("Shuffle Cards")
+                Text("New Game")
                     .font(.title2)
             }
             .padding()
-            HStack {
-                Button(action: {
-                    viewModel.changeTheme(to: "Cat")
-                    viewModel.shuffle()
-                }) {
-                    VStack {
-                        Image(systemName: "cat.fill")
-                            .font(.largeTitle)
-                        Text("Cat Theme")
-                    }
-                    .foregroundColor(.teal)
-                }
-                Spacer()
-                Button(action: {
-                    viewModel.changeTheme(to: "Spooky")
-                    viewModel.shuffle()
-
-                }) {
-                    VStack {
-                        Image(systemName: "tree.fill")
-                            .font(.largeTitle)
-                        Text("Spooky Theme")
-                    }
-                    .foregroundColor(.orange)
-                }
-                Spacer()
-                Button(action: {
-                    viewModel.changeTheme(to: "Flag")
-                    viewModel.shuffle()
-                }) {
-                    VStack {
-                        Image(systemName: "flag.fill")
-                            .font(.largeTitle)
-                        Text("Flag Theme")
-                    }
-                    .foregroundColor(.pink)
-                }
-            }
         }
         .padding()
     }
@@ -82,7 +45,7 @@ struct ContentView: View {
                          viewModel.choose(card)
                      }
              }
-             .foregroundColor(viewModel.backgroundColor)
+             .foregroundColor(Color(themeColor: viewModel.color))
          }
      }
  }
@@ -113,6 +76,19 @@ struct ContentView: View {
      }
  }
 
+extension Color {
+    init(themeColor: String) {
+        switch themeColor {
+        case ".pink": self = .pink
+        case ".teal": self = .teal
+        case ".blue": self = .blue
+        case ".orange": self = .orange
+        case ".green": self = .green
+        case ".yellow": self = .yellow
+        default: self = .gray
+        }
+    }
+}
 // what is this
  #Preview {
      ContentView(viewModel: EmojiMemoryGame())

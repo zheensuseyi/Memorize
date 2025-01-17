@@ -7,7 +7,6 @@
 
 // This is my model, it represents my apps data and logic.
 import Foundation
-
 struct MemorizeGame<CardContent> where CardContent: Equatable {
     // FIXME: what does (set) mean
     // this property means that its read-only outside the struct, but within the struct it can be both read and written.
@@ -89,6 +88,19 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
            "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? " matched" : "")"
         }
         
+    }
+    
+    }
+struct Theme {
+    var name: String
+    var emojis: Array<String>
+    var color: String  // Store color as a string
+    var numberOfPairsOfCards: Int
+    init(name: String, emojis: Array<String>, color: String, numberOfPairsOfCards: Int) {
+        self.name = name
+        self.emojis = emojis
+        self.color = color
+        self.numberOfPairsOfCards = numberOfPairsOfCards
     }
 }
 // FIXME: help understand this array.
