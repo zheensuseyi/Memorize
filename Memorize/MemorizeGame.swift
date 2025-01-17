@@ -11,9 +11,11 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     // FIXME: what does (set) mean
     // this property means that its read-only outside the struct, but within the struct it can be both read and written.
     private(set) var cards: Array<Card>
+    private(set) var score: Int
     // cardContentFactory is a closure that takes an integer pairIndex and returns a CardContent value
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = []
+        score = 0
         // loops through the pairs using cardContentFactory to generate the content for each pair
         // creates two card objects for each pair with unique ids
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
@@ -35,7 +37,7 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
             // .filter is a build in method that filters an array based on a condition, in this case a closure that states for each index in cards.indices, it will check if cards[index].isFaceup is true.
             // it will only keep the indices of cards that are face up
             // .only is an extension on Array that returns the first element of the array contains exactly one item, otherwise it will return nil
-            cards.indices.filter { index in cards[index].isFaceUp }.only
+            cards.indices.filter { cards[$0].isFaceUp }.only
         }
         // The setter ensures that only the card at newValue index is face-up, and all other cards are face-down
         set {
@@ -61,10 +63,24 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
                     if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchIndex].isMatched = true
+                        score += 2
+                    }
+                    else {
+                        if cards[chosenIndex].seen && cards[potentialMatchIndex].seen {
+                            score -= 1
+                        }
+                        cards[chosenIndex].seen = true
+                        cards[potentialMatchIndex].seen = true
                     }
                 }
                 // otherwise, the index of the one and only face up card will be now equal to the chosenindex?
                 else {
+                    if cards[chosenIndex].seen {
+                        score -= 1
+                    }
+                    else {
+                        cards[chosenIndex].seen = true
+                    }
                     indexOfTheOneAndOnlyFaceUpCard = chosenIndex
                 }
                 // current card is now isFaceUp
@@ -84,6 +100,7 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
         var isMatched = false
         let content: CardContent
         var id: String
+        var seen = false
         var debugDescription: String {
            "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? " matched" : "")"
         }

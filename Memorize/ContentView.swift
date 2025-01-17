@@ -18,6 +18,7 @@ struct ContentView: View {
             Text(viewModel.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
+            Text("Score: \(viewModel.score)")
             // ScrollView for our cards
             ScrollView {
                 // computed property that will build our game
@@ -45,7 +46,7 @@ struct ContentView: View {
                          viewModel.choose(card)
                      }
              }
-             .foregroundColor(Color(themeColor: viewModel.color))
+             .foregroundColor(Color(viewModel.changeColor(color: viewModel.color)))
          }
      }
  }
@@ -75,20 +76,6 @@ struct ContentView: View {
          .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
      }
  }
-
-extension Color {
-    init(themeColor: String) {
-        switch themeColor {
-        case ".pink": self = .pink
-        case ".teal": self = .teal
-        case ".blue": self = .blue
-        case ".orange": self = .orange
-        case ".green": self = .green
-        case ".yellow": self = .yellow
-        default: self = .gray
-        }
-    }
-}
 // what is this
  #Preview {
      ContentView(viewModel: EmojiMemoryGame())
