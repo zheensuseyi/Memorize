@@ -16,31 +16,31 @@ class EmojiMemoryGame: ObservableObject {
         name: "Flag",
         emojis: ["🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️", "🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️"],
         color: ".teal",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static let spookyTheme = Theme(
         name: "Spooky",
         emojis: ["👻", "🎃", "🧛🏻", "🤠", "👻", "🎃", "🧛🏻", "🤠"],
         color: ".orange",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static let natureTheme = Theme(
         name: "Nature",
         emojis: ["🌳", "🌲", "🌵", "🌼", "🌺", "🌴", "🍂", "🍁"],
         color: ".green",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static let spaceTheme = Theme(
         name: "Space",
         emojis: ["🚀", "🪐", "🌌", "✨", "🌕", "☄️", "🌠", "🛸"],
         color: ".blue",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static let foodTheme = Theme(
         name: "Food",
         emojis: ["🍎", "🍔", "🍕", "🍩", "🍪", "🍇", "🍉", "🍟"],
         color: ".yellow",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static var currentThemes = [
         spookyTheme,
@@ -114,9 +114,7 @@ class EmojiMemoryGame: ObservableObject {
             return Color.gray // Return nil if the color isn't recognized
         }
     }
-    func changeNumberOfPairsOfCards(numberOfPairsOfCards: Int) -> Int {
-        return Int.random(in: 2...7)
-    }
+
     
     func newGame() {
             // Update chosenNumber and create a new game
