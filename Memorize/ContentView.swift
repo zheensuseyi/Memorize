@@ -69,7 +69,7 @@ struct ContentView: View {
 */
     
  
-
+// Why do we need a struct here. What does this struct even do?
  struct CardView: View {
      let card: MemorizeGame<String>.Card
      init(_ card: MemorizeGame<String>.Card) {

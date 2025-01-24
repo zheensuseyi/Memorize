@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// dont really understand this entire struct, and why it has to be in its own file
 struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     var items: [Item]
