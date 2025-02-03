@@ -12,7 +12,7 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     // this property means that its read-only outside the struct, but within the struct it can be both read and written.
     private(set) var cards: Array<Card>
     private(set) var score: Int
-    // cardContentFactory is a closure that takes an integer pairIndex and returns a CardContent value
+    // cardContentFactory is a function that will return the CardContent
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = []
         score = 0
@@ -90,7 +90,7 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
-        var isFaceUp = false
+        var isFaceUp = true
         var isMatched = false
         let content: CardContent
         var id: String

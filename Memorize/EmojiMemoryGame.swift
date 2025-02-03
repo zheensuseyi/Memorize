@@ -9,41 +9,42 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
+    typealias Card = MemorizeGame<String>.Card
     private static let catTheme = Theme(
         name: "Cat",
         emojis: ["😽", "😾", "🐱", "😸", "🐈", "🐈‍⬛", "😺", "😼"],
         color: ".pink",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static let flagTheme = Theme(
         name: "Flag",
         emojis: ["🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️", "🇻🇳", "🇨🇳", "🇯🇵", "🇸🇪"],
         color: ".teal",
-        numberOfPairsOfCards: 3
+        numberOfPairsOfCards: 2
     )
     private static let spookyTheme = Theme(
         name: "Spooky",
         emojis: ["👻", "🎃", "🧛🏻", "🤠", "💀", "🤖", "👹", "🧌"],
         color: ".orange",
-        numberOfPairsOfCards: 5
+        numberOfPairsOfCards: 2
     )
     private static let natureTheme = Theme(
         name: "Nature",
         emojis: ["🌳", "🌲", "🌵", "🌼", "🌺", "🌴", "🍂", "🍁"],
         color: ".green",
-        numberOfPairsOfCards: 6
+        numberOfPairsOfCards: 2
     )
     private static let spaceTheme = Theme(
         name: "Space",
         emojis: ["🚀", "🪐", "🌌", "✨", "🌕", "☄️", "🌠", "🛸"],
         color: ".blue",
-        numberOfPairsOfCards: 4
+        numberOfPairsOfCards: 2
     )
     private static let foodTheme = Theme(
         name: "Food",
         emojis: ["🍎", "🍔", "🍕", "🍩", "🍪", "🍇", "🍉", "🍟"],
         color: ".yellow",
-        numberOfPairsOfCards: 7
+        numberOfPairsOfCards: 2
     )
     
     private static let myThemes = [
@@ -78,7 +79,7 @@ class EmojiMemoryGame: ObservableObject {
         self.numberOfPairsOfCards = theme.numberOfPairsOfCards
     }
     
-    var cards: Array<MemorizeGame<String>.Card> {
+    var cards: Array<Card> {
         return model.cards
     }
     
@@ -98,7 +99,7 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
-    func choose(_ card: MemorizeGame<String>.Card) {
+    func choose(_ card: Card) {
         model.choose(card)
     }
   
