@@ -12,8 +12,53 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     // this property means that its read-only outside the struct, but within the struct it can be both read and written.
     private(set) var cards: Array<Card>
     private(set) var score: Int
+    private var myThemes: [CardTheme]
     // cardContentFactory is a function that will return the CardContent
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+        let catTheme = CardTheme(
+            cardName: "Cat",
+            cardEmojis: ["😽", "😾", "🐱", "😸", "🐈", "🐈‍⬛", "😺", "😼"],
+            cardColor: ".pink",
+            cardNumberOfPairsOfCards: 2
+        )
+        let flagTheme = CardTheme(
+            cardName: "Flag",
+            cardEmojis: ["🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️", "🇻🇳", "🇨🇳", "🇯🇵", "🇸🇪"],
+            cardColor: ".teal",
+            cardNumberOfPairsOfCards: 2
+        )
+        let spookyTheme = CardTheme(
+            cardName: "Spooky",
+            cardEmojis: ["👻", "🎃", "🧛🏻", "🤠", "💀", "🤖", "👹", "🧌"],
+            cardColor: ".orange",
+            cardNumberOfPairsOfCards: 2
+        )
+        let natureTheme = CardTheme(
+            cardName: "Nature",
+            cardEmojis: ["🌳", "🌲", "🌵", "🌼", "🌺", "🌴", "🍂", "🍁"],
+            cardColor: ".green",
+            cardNumberOfPairsOfCards: 2
+        )
+        let spaceTheme = CardTheme(
+            cardName: "Space",
+            cardEmojis: ["🚀", "🪐", "🌌", "✨", "🌕", "☄️", "🌠", "🛸"],
+            cardColor: ".blue",
+            cardNumberOfPairsOfCards: 2
+        )
+        let foodTheme = CardTheme(
+            cardName: "Food",
+            cardEmojis: ["🍎", "🍔", "🍕", "🍩", "🍪", "🍇", "🍉", "🍟"],
+            cardColor: ".yellow",
+            cardNumberOfPairsOfCards: 2
+        )
+        self.myThemes = [
+        catTheme,
+        flagTheme,
+        spookyTheme,
+        natureTheme,
+        spaceTheme,
+        foodTheme
+        ]
         cards = []
         score = 0
         // loops through the pairs using cardContentFactory to generate the content for each pair
@@ -45,9 +90,9 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
             // forEach is a built-in swift method that iterates over every element and performs an action for each one. in this case, it will iterate over every card index
             // $0 is the current element in the loop, and it compares (==) to newValue. if the index is the same as newValue, it sets isFaceUp to true, otherwise; false.
             cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0)}
-            }
         }
-     
+    }
+    
     
     // Game function for chosing a card, the most important function
     mutating func choose(_ card: Card) {
@@ -96,22 +141,20 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
         var id: String
         var seen = false
         var debugDescription: String {
-           "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? " matched" : "")"
+            "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? " matched" : "")"
         }
-        
     }
-    
-    }
-struct Theme {
-    var name: String
-    var emojis: Array<String>
-    var color: String  // Store color as a string
-    var numberOfPairsOfCards: Int
-    init(name: String, emojis: Array<String>, color: String, numberOfPairsOfCards: Int) {
-        self.name = name
-        self.emojis = emojis
-        self.color = color
-        self.numberOfPairsOfCards = numberOfPairsOfCards
+    struct CardTheme {
+        var cardName: String
+        var cardEmojis: Array<String>
+        var cardColor: String  // Store color as a string
+        var cardNumberOfPairsOfCards: Int
+        init(cardName: String, cardEmojis: Array<String>, cardColor: String, cardNumberOfPairsOfCards: Int) {
+            self.cardName = cardName
+            self.cardEmojis = cardEmojis
+            self.cardColor = cardColor
+            self.cardNumberOfPairsOfCards = cardNumberOfPairsOfCards
+        }
     }
 }
 // FIXME: help understand this array.

@@ -10,75 +10,12 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     typealias Card = MemorizeGame<String>.Card
-    private static let catTheme = Theme(
-        name: "Cat",
-        emojis: ["😽", "😾", "🐱", "😸", "🐈", "🐈‍⬛", "😺", "😼"],
-        color: ".pink",
-        numberOfPairsOfCards: 2
-    )
-    private static let flagTheme = Theme(
-        name: "Flag",
-        emojis: ["🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️", "🇻🇳", "🇨🇳", "🇯🇵", "🇸🇪"],
-        color: ".teal",
-        numberOfPairsOfCards: 2
-    )
-    private static let spookyTheme = Theme(
-        name: "Spooky",
-        emojis: ["👻", "🎃", "🧛🏻", "🤠", "💀", "🤖", "👹", "🧌"],
-        color: ".orange",
-        numberOfPairsOfCards: 2
-    )
-    private static let natureTheme = Theme(
-        name: "Nature",
-        emojis: ["🌳", "🌲", "🌵", "🌼", "🌺", "🌴", "🍂", "🍁"],
-        color: ".green",
-        numberOfPairsOfCards: 2
-    )
-    private static let spaceTheme = Theme(
-        name: "Space",
-        emojis: ["🚀", "🪐", "🌌", "✨", "🌕", "☄️", "🌠", "🛸"],
-        color: ".blue",
-        numberOfPairsOfCards: 2
-    )
-    private static let foodTheme = Theme(
-        name: "Food",
-        emojis: ["🍎", "🍔", "🍕", "🍩", "🍪", "🍇", "🍉", "🍟"],
-        color: ".yellow",
-        numberOfPairsOfCards: 2
-    )
-    
-    private static let myThemes = [
-        spookyTheme,
-        flagTheme,
-        catTheme,
-        natureTheme,
-        foodTheme,
-        spaceTheme
-    ]
-    
     // Computed property to get the current theme
-    private var currentTheme: Theme {
-        return EmojiMemoryGame.myThemes[chosenNumber]
-    }
-    
-    private var chosenNumber: Int = Int.random(in: 0...5)
-    @Published var model: MemorizeGame<String>
+    var model: MemorizeGame<String> = createMemoryGame(<#T##currentTheme: MemorizeGame<String>.CardTheme##MemorizeGame<String>.CardTheme#>)
     @Published var name: String
     @Published var emojis: [String]
     @Published var color: String
     @Published var numberOfPairsOfCards: Int
-    
-    // Initializer
-    init() {
-        // Initialize with the current theme
-        let theme = EmojiMemoryGame.myThemes[chosenNumber]
-        self.model = EmojiMemoryGame.createMemoryGame(theme)
-        self.name = theme.name
-        self.emojis = theme.emojis
-        self.color = theme.color
-        self.numberOfPairsOfCards = theme.numberOfPairsOfCards
-    }
-    
     var cards: Array<Card> {
         return model.cards
     }
@@ -86,12 +23,15 @@ class EmojiMemoryGame: ObservableObject {
     var score: Int {
         return model.score
     }
+    var currentTheme: MemorizeGame<String> {
+        return MemorizeGame<String>.
+    }
     
     // what is a MemorizeGame<String> and why is it returning it
-    private static func createMemoryGame(_ currentTheme: Theme) -> MemorizeGame<String> {
-        return MemorizeGame(numberOfPairsOfCards: currentTheme.numberOfPairsOfCards) {
-            if currentTheme.emojis.indices.contains($0) {
-                return currentTheme.emojis[$0]
+    private static func createMemoryGame() -> MemorizeGame<String> {
+        return MemorizeGame(numberOfPairsOfCards: currentTheme.cardNumberOfPairsOfCards) {
+            if currentTheme.cardEmojis.indices.contains($0) {
+                return currentTheme.cardEmojis[$0]
             }
             else {
                 return "⁉️"
@@ -124,17 +64,13 @@ class EmojiMemoryGame: ObservableObject {
 
     
     func newGame() {
-            // Update chosenNumber and create a new game
-            chosenNumber = Int.random(in: 0...5)
-            var theme = EmojiMemoryGame.myThemes[chosenNumber]
-            theme.numberOfPairsOfCards = Int.random(in: 2...7) // Set a random number for pairs
-            
-            model = EmojiMemoryGame.createMemoryGame(theme)
-        
+            var currentTheme = myThemes[0]
+            currentTheme.cardNumberOfPairsOfCards = Int.random(in: 2...7) // Set a random number for pairs
+            model = EmojiMemoryGame.createMemoryGame(currentTheme)
             // Update Published properties for the UI
-            name = theme.name
-            emojis = theme.emojis
-            color = theme.color
-            numberOfPairsOfCards = theme.numberOfPairsOfCards
+            name = currentTheme.cardName
+            emojis = currentTheme.cardEmojis
+            color = currentTheme.cardColor
+            numberOfPairsOfCards = currentTheme.cardNumberOfPairsOfCards
     }
 }

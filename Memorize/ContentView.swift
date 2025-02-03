@@ -53,5 +53,5 @@ struct ContentView: View {
 
 // what is this
  #Preview {
-     ContentView(viewModel: EmojiMemoryGame())
+     ContentView(viewModel: EmojiMemoryGame(model: <#T##MemorizeGame<String>#>, currentTheme: <#T##MemorizeGame<String>.CardTheme#>, myThemes: <#T##[MemorizeGame<String>.CardTheme]#>))
  }
