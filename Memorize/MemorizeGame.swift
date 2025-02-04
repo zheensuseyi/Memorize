@@ -135,7 +135,13 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
-        var isFaceUp = false
+        var isFaceUp = false {
+            didSet {
+                if oldValue && !isFaceUp {
+                    seen = true
+                }
+            }
+        }
         var isMatched = false
         let content: CardContent
         var id: String

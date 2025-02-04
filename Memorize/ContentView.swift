@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    typealias Card = MemorizeGame<String>.Card
     // observedobject, if this thing change
     @ObservedObject var viewModel: EmojiMemoryGame
     private let aspectRatio: CGFloat = 2/3
@@ -20,14 +21,16 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
             Text("Score: \(viewModel.score)")
+                .animation(nil)
             // ScrollView for our cards
             ScrollView {
                 // computed property that will build our game
                 cards
-                    .animation(.default, value: viewModel.cards)
             }
             Button(action: {
-                viewModel.newGame()
+                withAnimation {
+                    viewModel.newGame()
+                }
             }) {
                 Text("New Game")
                     .font(.title2)
@@ -43,11 +46,17 @@ struct ContentView: View {
             CardView(card)
                 .aspectRatio(aspectRatio, contentMode: .fit)
                 .padding(4)
+                .overlay(FlyingNumber(number: scoreChange(causedBy: card)))
                 .onTapGesture {
-                    viewModel.choose(card)
+                    withAnimation(.easeInOut(duration: 1)) {
+                        viewModel.choose(card)
+                    }
                 }
         }
         .foregroundColor(Color(viewModel.changeColor(color: viewModel.color)))
+    }
+    private func scoreChange(causedBy card: Card) -> Int {
+        return 0
     }
 }
 
