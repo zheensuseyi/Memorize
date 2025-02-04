@@ -12,10 +12,10 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     // this property means that its read-only outside the struct, but within the struct it can be both read and written.
     private(set) var cards: Array<Card>
     private(set) var score: Int
-    private var myThemes: [CardTheme]
+  //  private var myThemes: [CardTheme]
     // cardContentFactory is a function that will return the CardContent
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
-        let catTheme = CardTheme(
+      /*  let catTheme = CardTheme(
             cardName: "Cat",
             cardEmojis: ["😽", "😾", "🐱", "😸", "🐈", "🐈‍⬛", "😺", "😼"],
             cardColor: ".pink",
@@ -58,7 +58,7 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
         natureTheme,
         spaceTheme,
         foodTheme
-        ]
+        ] */
         cards = []
         score = 0
         // loops through the pairs using cardContentFactory to generate the content for each pair
@@ -135,7 +135,7 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
-        var isFaceUp = true
+        var isFaceUp = false
         var isMatched = false
         let content: CardContent
         var id: String
@@ -145,15 +145,15 @@ struct MemorizeGame<CardContent> where CardContent: Equatable {
         }
     }
     struct CardTheme {
-        var cardName: String
-        var cardEmojis: Array<String>
-        var cardColor: String  // Store color as a string
-        var cardNumberOfPairsOfCards: Int
-        init(cardName: String, cardEmojis: Array<String>, cardColor: String, cardNumberOfPairsOfCards: Int) {
-            self.cardName = cardName
-            self.cardEmojis = cardEmojis
-            self.cardColor = cardColor
-            self.cardNumberOfPairsOfCards = cardNumberOfPairsOfCards
+        var name: String
+        var emojis: Array<String>
+        var color: String  // Store color as a string
+        var numberOfPairsOfCards: Int
+        init(name: String, emojis: Array<String>, color: String, numberOfPairsOfCards: Int) {
+            self.name = name
+            self.emojis = emojis
+            self.color = color
+            self.numberOfPairsOfCards = numberOfPairsOfCards
         }
     }
 }
