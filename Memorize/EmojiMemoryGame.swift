@@ -12,44 +12,44 @@ class EmojiMemoryGame: ObservableObject {
     typealias Card = MemorizeGame<String>.Card
     typealias CT = MemorizeGame<String>.CardTheme
 
-    var catTheme = CT(
+    private var catTheme = CT(
         name: "Cat",
         emojis: ["😽", "😾", "🐱", "😸", "🐈", "🐈‍⬛", "😺", "😼"],
         color: ".pink",
         numberOfPairsOfCards: 6
     )
-    var flagTheme = CT(
+    private var flagTheme = CT(
         name: "Flag",
         emojis: ["🏳️‍🌈", "🏳️‍⚧️", "🇺🇸", "🏴‍☠️", "🇻🇳", "🇨🇳", "🇯🇵", "🇸🇪"],
         color: ".teal",
         numberOfPairsOfCards: 6
     )
-    var spookyTheme = CT(
+    private var spookyTheme = CT(
         name: "Spooky",
         emojis: ["👻", "🎃", "🧛🏻", "🤠", "💀", "🤖", "👹", "🧌"],
         color: ".orange",
         numberOfPairsOfCards: 6
     )
-    var natureTheme = CT(
+    private var natureTheme = CT(
         name: "Nature",
         emojis: ["🌳", "🌲", "🌵", "🌼", "🌺", "🌴", "🍂", "🍁"],
         color: ".green",
         numberOfPairsOfCards: 6
     )
-    var spaceTheme = CT(
+    private var spaceTheme = CT(
         name: "Space",
         emojis: ["🚀", "🪐", "🌌", "✨", "🌕", "☄️", "🌠", "🛸"],
         color: ".blue",
         numberOfPairsOfCards: 6
     )
-    var foodTheme = CT(
+    private var foodTheme = CT(
         name: "Food",
         emojis: ["🍎", "🍔", "🍕", "🍩", "🍪", "🍇", "🍉", "🍟"],
         color: ".yellow",
         numberOfPairsOfCards: 6
     )
-    var myThemes: [CT] = []
-    var currentTheme: CT
+    private var myThemes: [CT] = []
+    private var currentTheme: CT
     // Computed property to get the current theme
     @Published var model: MemorizeGame<String>
     @Published var name: String
